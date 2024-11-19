@@ -1,17 +1,17 @@
-"use client"
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useRouter, usePathname } from 'next/navigation';
-import Cookies from 'js-cookie';
-import Swal from 'sweetalert2';
+"use client";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import axios from "axios";
+import { useRouter, usePathname } from "next/navigation";
+import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 
-const UploadPage = () => {
+const UploadForm = () => {
   const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState('');
   const [status, setStatus] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(false);  // Changed to false initially
+  const [loading, setLoading] = useState(true);  // Initially loading
   const [pageName, setPageName] = useState('');
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageName, setImageName] = useState('');
@@ -23,81 +23,78 @@ const UploadPage = () => {
   const router = useRouter();
   const pathname = usePathname();
 
+  // Authentication Check
   useEffect(() => {
     const checkAuth = async () => {
-      const token = Cookies.get('token');
+      const token = Cookies.get("token");
 
       if (!token) {
         await Swal.fire({
-          title: 'Not Logged In',
-          text: 'You are not logged in. Redirecting to the login page...',
-          icon: 'warning',
-          confirmButtonText: 'OK',
-          allowOutsideClick: false, 
+          title: "Not Logged In",
+          text: "You are not logged in. Redirecting to the login page...",
+          icon: "warning",
+          confirmButtonText: "OK",
+          allowOutsideClick: false,
         });
 
-        if (pathname !== '/admin/login') {
-          router.push('/admin/login');
+        if (pathname !== "/admin/login") {
+          router.push("/admin/login");
         } else {
-          setLoading(false);
+          setLoading(false);  // Stop loading if already on login page
         }
         return;
       }
 
       try {
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        if (decodedToken.role === 'admin') {
+        const decodedToken = JSON.parse(atob(token.split(".")[1]));
+        if (decodedToken.role === "admin") {
           setIsAdmin(true);
           setIsAuthenticated(true);
         } else {
           setIsAuthenticated(true);
-          router.push('/not-authorized');
+          router.push("/not-authorized");
         }
       } catch (error) {
         setIsAuthenticated(false);
-        router.push('/admin/login');
+        router.push("/admin/login");
       } finally {
-        setLoading(false);
+        setLoading(false);  // Stop loading when auth check is done
       }
     };
 
     checkAuth();
   }, [router, pathname]);
 
+  // Fetch pages after authentication
   useEffect(() => {
-    const fetchPages = async () => {
-      try {
-        const response = await axios.get('/api/addPage');
-        setPages(response.data);
-      } catch (error) {
-        console.error('Error fetching pages:', error);
-      }
-    };
-
     if (isAuthenticated && isAdmin) {
+      const fetchPages = async () => {
+        try {
+          const response = await axios.get("/api/addPage");
+          setPages(response.data);
+        } catch (error) {
+          console.error("Error fetching pages:", error);
+        }
+      };
       fetchPages();
     }
   }, [isAuthenticated, isAdmin]);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     setImage(file);
-  
+
     if (file) {
       const previewUrl = URL.createObjectURL(file);
       setImagePreview(previewUrl);
       setImageUrl(''); // Clear image URL preview if an image file is selected
-      // Set the image name as the file's name (including the extension)
       setImageName(file.name); // Ensure the image name is set correctly with extension
     } else {
       setImagePreview(null);
     }
   };
-  
-  
-  
 
-  const handleImageUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
     const url = e.target.value;
     setImageUrl(url);
 
@@ -109,108 +106,106 @@ const UploadPage = () => {
     }
   };
 
-  const handlePageNameChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handlePageNameChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedPage = e.target.value;
     setPageName(selectedPage);
-    
+
     const selectedPageDetails = pages.find((page) => page.name === selectedPage);
-    
+
     if (selectedPageDetails) {
       setStarRating(selectedPageDetails.starRatingEnabled);
       setDescription(selectedPageDetails.descriptionEnabled);
     }
   };
 
-  const handleImageNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setImageName(e.target.value); // Handle image name input change
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-  
-    setLoading(true); // Set loading to true when the upload starts
-  
+
+    console.log("Image:", image);
+    console.log("Image URL:", imageUrl);
+
+    setLoading(true);
+
     const formData = new FormData();
-  
+
     // Handle image file
     if (image) {
-      // Ensure imageName has the correct file extension
-      const fileExtension = image.name.split('.').pop() || 'jpeg'; // Default to jpeg if no extension
+      const fileExtension = image.name.split(".").pop() || "jpeg"; // Default to jpeg if no extension
       let fullImageName = imageName;
-  
-      // Only append the extension if the image name doesn't already have it
+
       if (!fullImageName.toLowerCase().endsWith(`.${fileExtension}`)) {
-        fullImageName = `${imageName}.${fileExtension}`;  // Combine name with extension
+        fullImageName = `${imageName}.${fileExtension}`; // Combine name with extension
       }
-  
-      formData.append('image', image);
-      formData.append('image_name', fullImageName);  // Include full image name with extension
+
+      formData.append("file", image); // Change to match the server-side code
+      formData.append("image_name", fullImageName); // Include full image name with extension
     }
-  
+
     // Handle image URL
     if (imageUrl) {
-      formData.append('image_url', imageUrl);
+      formData.append("image_url", imageUrl);
     }
-  
+
     // Other form data
     if (pageName) {
-      formData.append('page_name', pageName);
+      formData.append("page_name", pageName);
     }
     if (starRating) {
-      formData.append('star_rating', ratingValue.toString());
+      formData.append("star_rating", ratingValue.toString());
     }
     if (testimonialText) {
-      formData.append('testimonial_text', testimonialText);
+      formData.append("testimonial_text", testimonialText);
     }
-  
+
     try {
-      const response = await axios.post('/api/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const response = await axios.post("/api/s3-upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
       setStatus(response.data.message);
-  
+
       Swal.fire({
-        title: 'Success!',
-        text: 'Image uploaded successfully!',
-        icon: 'success',
+        title: "Success!",
+        text: "Image uploaded successfully!",
+        icon: "success",
         showConfirmButton: false,
         timer: 2000,
       });
-  
+
       // Reset the form after successful upload
       setImage(null);
-      setImageUrl('');
-      setPageName('');
+      setImageUrl("");
+      setPageName("");
       setStarRating(false);
       setDescription(false);
       setRatingValue(0);
-      setTestimonialText('');
+      setTestimonialText("");
       setImagePreview(null);
-      setImageName(''); // Reset image name
+      setImageName(""); // Reset image name
     } catch (error) {
-      setStatus('Error uploading image.');
-  
+      setStatus("Error uploading image.");
+
       Swal.fire({
-        title: 'Error!',
-        text: 'There was an issue uploading the image.',
-        icon: 'error',
+        title: "Error!",
+        text: "There was an issue uploading the image.",
+        icon: "error",
         showConfirmButton: false,
         timer: 2000,
       });
     } finally {
       setLoading(false); // Set loading to false after upload is complete (success or failure)
     }
-  };
-  
-  
-  
-  
+};
+
+
   if (loading) {
     return (
       <div>
         <h1>Uploading...</h1>
         <div className="spinner">
-          {/* This can be any spinner you'd like */}
           <div className="loader">Loading...</div>
         </div>
       </div>
@@ -276,7 +271,7 @@ const UploadPage = () => {
                     checked={rating === ratingValue}
                     onChange={() => setRatingValue(rating)}
                   />
-                  {rating} Star{rating > 1 && 's'}
+                  {rating} Star{rating > 1 && "s"}
                 </label>
               ))}
             </div>
@@ -300,23 +295,13 @@ const UploadPage = () => {
       {status && <p>{status}</p>}
 
       <div>
-        <h3>Image Preview:</h3>
+        <h3>Image Preview</h3>
         {imagePreview && (
-          <div>
-            <p>Preview of uploaded image:</p>
-            <img src={imagePreview} alt="Image preview" style={{ maxWidth: '300px', marginTop: '10px' }} />
-          </div>
+          <img src={imagePreview} alt="Preview" style={{ maxWidth: "100%" }} />
         )}
-        {!imagePreview && imageUrl && (
-          <div>
-            <p>Preview of image URL:</p>
-            <img src={imageUrl} alt="Image URL preview" style={{ maxWidth: '300px', marginTop: '10px' }} />
-          </div>
-        )}
-        {!imagePreview && !imageUrl && <p>No preview available for this image.</p>}
       </div>
     </div>
   );
 };
 
-export default UploadPage;
+export default UploadForm;
