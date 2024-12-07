@@ -69,7 +69,7 @@ export async function POST(req) {
       const fileContentType = mime.lookup(fileExtension) || `image/${fileExtension}`;
       const fullImageName = getCleanImageName(image_name, fileExtension);
 
-      const uploadResult = await uploadImageToS3(image, fullImageName, fileContentType);
+      await uploadImageToS3(image, fullImageName, fileContentType);
       image_url = `https://${BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fullImageName}`;
       
       console.log("Uploaded image URL:", image_url);

@@ -6,21 +6,24 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "seed": "node --loader ts-node/esm prisma/seed.ts",
     "lint": "next lint"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.693.0",
+    "@prisma/client": "^6.0.0",
+    "@supabase/supabase-js": "^2.47.2",
     "aws-sdk": "^2.1692.0",
     "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "busboy": "^1.6.0",
     "crypto-browserify": "^3.12.1",
-    "dotenv": "^16.4.5",
     "formidable": "^3.5.2",
     "jose": "^5.9.6",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "jsonwebtoken-esm": "^2.0.1",
+    "jwt-decode": "^4.0.0",
     "mime-types": "^2.1.35",
     "next": "15.0.2",
     "path": "^0.12.7",
@@ -30,12 +33,16 @@
     "sweetalert2": "^11.14.5"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/js-cookie": "^3.0.6",
-    "@types/node": "^20",
+    "@types/node": "^20.17.9",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "dotenv": "^16.4.7",
     "eslint": "^8",
     "eslint-config-next": "15.0.2",
+    "prisma": "^6.0.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

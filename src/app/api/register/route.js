@@ -11,20 +11,17 @@ export async function POST(req) {
       });
     }
 
-    // Check if the user already exists
-    const userCheck = await query('SELECT * FROM userDetails WHERE email = $1', [email]);
+    const userCheck = await query('SELECT * FROM UserDetails WHERE email = $1', [email]);
     if (userCheck.rows.length > 0) {
       return new Response(JSON.stringify({ message: 'User with this email already exists' }), {
         status: 409,
       });
     }
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Insert the new user into the database
     await query(
-      'INSERT INTO userDetails (username, email, password, role) VALUES ($1, $2, $3, $4)',
+      'INSERT INTO UserDetails (username, email, password, role) VALUES ($1, $2, $3, $4)',
       [username, email, hashedPassword, 'admin']
     );
 

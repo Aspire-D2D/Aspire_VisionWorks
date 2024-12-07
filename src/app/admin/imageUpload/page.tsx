@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter, usePathname } from "next/navigation";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
+import Image from "next/image";
 
 const UploadForm = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -55,6 +56,7 @@ const UploadForm = () => {
           router.push("/not-authorized");
         }
       } catch (error) {
+        console.log(error);
         setIsAuthenticated(false);
         router.push("/admin/login");
       } finally {
@@ -186,6 +188,7 @@ const UploadForm = () => {
       setImagePreview(null);
       setImageName(""); // Reset image name
     } catch (error) {
+      console.log(error);
       setStatus("Error uploading image.");
 
       Swal.fire({
@@ -297,7 +300,7 @@ const UploadForm = () => {
       <div>
         <h3>Image Preview</h3>
         {imagePreview && (
-          <img src={imagePreview} alt="Preview" style={{ maxWidth: "100%" }} />
+          <Image src={imagePreview} alt="Preview" style={{ maxWidth: "100%" }} />
         )}
       </div>
     </div>

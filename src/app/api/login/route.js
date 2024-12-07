@@ -14,7 +14,7 @@ export async function POST(req) {
       });
     }
 
-    const result = await query('SELECT * FROM userDetails WHERE email = $1', [email]);
+    const result = await query('SELECT * FROM UserDetails WHERE email = $1', [email]);
     const user = result.rows[0];
 
     if (!user) {

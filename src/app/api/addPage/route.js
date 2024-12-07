@@ -18,7 +18,7 @@ export async function POST(req) {
     const description = descriptionSelected ? true : false; 
 
     const result = await db.query(
-      'INSERT INTO pages (page_name, star_rating, description) VALUES ($1, $2, $3) RETURNING *',
+      'INSERT INTO Pages (page_name, star_rating, description) VALUES ($1, $2, $3) RETURNING *',
       [pageName, starRating, description]
     );
     const newPage = result.rows[0];
@@ -32,7 +32,7 @@ export async function POST(req) {
 
 export async function GET() {
   try {
-    const result = await db.query('SELECT page_name, star_rating, description FROM pages');
+    const result = await db.query('SELECT page_name, star_rating, description FROM Pages');
     
     const pages = result.rows.map(row => ({
       name: row.page_name,

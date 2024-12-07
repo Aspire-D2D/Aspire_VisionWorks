@@ -1,9 +1,12 @@
 "use client"
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { useRouter, usePathname } from 'next/navigation';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
+import NextImage from 'next/image';
+
 
 const UploadPage = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -11,7 +14,7 @@ const UploadPage = () => {
   const [status, setStatus] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(false);  // Changed to false initially
+  const [loading, setLoading] = useState(false); 
   const [pageName, setPageName] = useState('');
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageName, setImageName] = useState('');
@@ -21,7 +24,10 @@ const UploadPage = () => {
   const [ratingValue, setRatingValue] = useState(0);
   const [testimonialText, setTestimonialText] = useState('');
   const router = useRouter();
+  const [dynamicWidth, setDynamicWidth] = useState(0);
+  const [dynamicHeight, setDynamicHeight] = useState(0);
   const pathname = usePathname();
+  const imgRef = useRef<HTMLImageElement | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -54,6 +60,7 @@ const UploadPage = () => {
           router.push('/not-authorized');
         }
       } catch (error) {
+        console.log(error);
         setIsAuthenticated(false);
         router.push('/admin/login');
       } finally {
@@ -86,9 +93,15 @@ const UploadPage = () => {
     if (file) {
       const previewUrl = URL.createObjectURL(file);
       setImagePreview(previewUrl);
-      setImageUrl(''); // Clear image URL preview if an image file is selected
-      // Set the image name as the file's name (including the extension)
-      setImageName(file.name); // Ensure the image name is set correctly with extension
+      setImageUrl('');
+      setImageName(file.name);
+  
+      const img = new Image();
+      img.src = previewUrl;
+      img.onload = () => {
+        setDynamicWidth(img.width);
+        setDynamicHeight(img.height);
+      };
     } else {
       setImagePreview(null);
     }
@@ -128,31 +141,35 @@ const UploadPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
-    setLoading(true); // Set loading to true when the upload starts
+    setLoading(true);
   
     const formData = new FormData();
-  
-    // Handle image file
+    
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      const userId = decodedToken;
+      console.log("User Id is:", userId);
+      // formData.append('user_id', userId);
+    }
+
+    
     if (image) {
-      // Ensure imageName has the correct file extension
-      const fileExtension = image.name.split('.').pop() || 'jpeg'; // Default to jpeg if no extension
+      const fileExtension = image.name.split('.').pop() || 'jpeg';
       let fullImageName = imageName;
   
-      // Only append the extension if the image name doesn't already have it
       if (!fullImageName.toLowerCase().endsWith(`.${fileExtension}`)) {
-        fullImageName = `${imageName}.${fileExtension}`;  // Combine name with extension
+        fullImageName = `${imageName}.${fileExtension}`; 
       }
   
       formData.append('image', image);
-      formData.append('image_name', fullImageName);  // Include full image name with extension
+      formData.append('image_name', fullImageName); 
     }
   
-    // Handle image URL
     if (imageUrl) {
       formData.append('image_url', imageUrl);
     }
   
-    // Other form data
     if (pageName) {
       formData.append('page_name', pageName);
     }
@@ -177,7 +194,6 @@ const UploadPage = () => {
         timer: 2000,
       });
   
-      // Reset the form after successful upload
       setImage(null);
       setImageUrl('');
       setPageName('');
@@ -186,8 +202,9 @@ const UploadPage = () => {
       setRatingValue(0);
       setTestimonialText('');
       setImagePreview(null);
-      setImageName(''); // Reset image name
+      setImageName(''); 
     } catch (error) {
+      console.log(error);
       setStatus('Error uploading image.');
   
       Swal.fire({
@@ -198,7 +215,7 @@ const UploadPage = () => {
         timer: 2000,
       });
     } finally {
-      setLoading(false); // Set loading to false after upload is complete (success or failure)
+      setLoading(false);
     }
   };
   
@@ -304,13 +321,15 @@ const UploadPage = () => {
         {imagePreview && (
           <div>
             <p>Preview of uploaded image:</p>
-            <img src={imagePreview} alt="Image preview" style={{ maxWidth: '300px', marginTop: '10px' }} />
+            <NextImage src={imagePreview || imageUrl} alt="Image preview"  width={dynamicWidth} height={dynamicHeight} style={{ maxWidth: '100%', height: 'auto', marginTop: '10px' }}
+/>
+
           </div>
         )}
         {!imagePreview && imageUrl && (
           <div>
             <p>Preview of image URL:</p>
-            <img src={imageUrl} alt="Image URL preview" style={{ maxWidth: '300px', marginTop: '10px' }} />
+            <NextImage src={imageUrl} alt="Image URL preview" style={{ maxWidth: '300px', marginTop: '10px' }} />
           </div>
         )}
         {!imagePreview && !imageUrl && <p>No preview available for this image.</p>}

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import db from '../../../lib/db';
 
-export async function GET(req) {
+export async function GET() {
   try {
     // Query the database for the image related to the "Home" page and active status
     const result = await db.query(

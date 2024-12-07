@@ -32,7 +32,7 @@ async function uploadFileToS3(file, fileName) {
 
 async function saveImageToDatabase(userId, imageUrl, imageName, pageName, testimonialText, starRating) {
   const query = `
-    INSERT INTO "imageuploads" (
+    INSERT INTO "ImageUploads" (
       user_id, image_url, image_name, page_name, testimonial_text, star_rating
     ) VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING id;

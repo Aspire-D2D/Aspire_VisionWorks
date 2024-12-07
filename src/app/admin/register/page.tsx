@@ -58,6 +58,7 @@ function checkIfUserIsLoggedIn() {
       isAdmin: decodedToken.role === 'admin',
     };
   } catch (error) {
+    console.log(error);
     return { isLoggedIn: false, isAdmin: false };
   }
 }

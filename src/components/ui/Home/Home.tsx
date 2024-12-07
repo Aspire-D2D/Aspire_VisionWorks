@@ -26,6 +26,7 @@ export default function Home() {
         const data: ImageData = await response.json();
         setImageData(data);
       } catch (error) {
+        console.log(error);
         setErrorMessage('Failed to load image');
       }
     };
