@@ -1,0 +1,110 @@
+/* Container and Global Styles */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  background-color: var(--color-white);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.loadingText {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--color-dark-gray);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-light-gray);
+}
+
+.table th {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.table tr:nth-child(even) {
+  background-color: var(--color-light-gray);
+}
+
+/* Common button styles for status and delete buttons */
+.statusBtn, .deleteBtn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  text-align: center;
+  margin-right: 8px;
+}
+
+.statusBtn.active {
+  color: #4caf50;
+}
+
+.statusBtn.inactive {
+  color: #f44336;
+}
+
+.statusBtn:hover, .deleteBtn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 8px 2px rgba(0, 128, 0, 0.5);
+}
+
+.statusBtn.inactive:hover {
+  box-shadow: 0 0 8px 2px rgba(255, 0, 0, 0.5);
+}
+
+.deleteBtn {
+  color: #f44336;
+}
+
+.deleteBtn:hover {
+  background-color: rgba(255, 0, 0, 0.1);
+  box-shadow: 0 0 10px 3px rgba(255, 0, 0, 0.5);
+}
+
+.material-icons {
+  display: inline-block;
+  font-size: inherit;
+  line-height: 1;
+  margin: 0;
+}
+
+.statusBtn:focus, .deleteBtn:focus {
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .table th, .table td {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+  .thumbnail {
+    width: 80px;
+  }
+}

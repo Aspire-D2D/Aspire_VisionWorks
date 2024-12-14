@@ -1,0 +1,156 @@
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background: var(--color-white);
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--color-primary);
+  }
+  
+  .dropzone {
+    border: 2px dashed var(--color-border-gray);
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    background: var(--color-light-gray);
+  }
+  
+  .icon {
+    font-size: 3rem;
+    color: var(--color-primary);
+  }
+  
+  .instruction {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: var(--color-dark-gray);
+  }
+  
+  .browse {
+    color: var(--color-primary);
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .supportedFormats {
+    font-size: 0.85rem;
+    color: var(--color-dark-gray);
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .fileInput {
+    display: none; /* Completely hides the file input */
+  }
+  
+  .label {
+    font-size: 0.9rem;
+    color: var(--color-black);
+    font-weight: 600;
+  }
+  
+  .input,
+  .select,
+  .textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--color-border-gray);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background: var(--color-white);
+  }
+  
+  .input:focus,
+  .select:focus,
+  .textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 4px var(--color-primary);
+  }
+  
+  .error {
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 4px;
+  }
+  
+  .textarea {
+    resize: none;
+    height: 80px;
+  }
+  
+  .uploadButton {
+    width: 100%;
+    padding: 12px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .uploadButton:hover {
+    background: var(--color-hover-primary);
+  }
+  
+  .status {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: var(--color-dark-gray);
+  }
+  
+  .preview {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .previewTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color-black);
+  }
+  
+  .noPreview {
+    font-size: 0.9rem;
+    color: var(--color-dark-gray);
+  }
+  
+  .rating {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .rating label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+  }
+  
+  .rating input[type="radio"] {
+    accent-color: var(--color-primary);
+    cursor: pointer;
+  }

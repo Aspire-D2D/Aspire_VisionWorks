@@ -12,7 +12,7 @@ export async function middleware(req) {
   }
 
   try {
-    const token = tokenObj.value; // Ensure token is retrieved as a string from the value property
+    const token = tokenObj.value;
     if (typeof token !== 'string') {
       console.log('Token is not a string:', token);
       throw new Error('Token is not a string');
@@ -21,13 +21,19 @@ export async function middleware(req) {
     const { payload } = await jwtVerify(token, JWT_SECRET);
     console.log('Token decoded:', payload);
 
-    // Use the role field to check if the user is admin
-    if (payload.role === 'admin') {
-      return NextResponse.next();
-    } else {
-      console.log('User is not admin, redirecting to login');
-      return NextResponse.redirect(new URL('/admin/login', req.url));
-    }
+    const isAdmin = payload.role === 'admin';
+    console.log('isAdmin:', isAdmin); 
+
+    const res = NextResponse.next();
+    res.headers.set('X-Is-Admin', isAdmin ? 'true' : 'false');
+    return res;
+
+    // if (payload.role === 'admin') {
+    //   return NextResponse.next();
+    // } else {
+    //   console.log('User is not admin, redirecting to login');
+    //   return NextResponse.redirect(new URL('/admin/login', req.url));
+    // }
   } catch (error) {
     console.log('Token verification failed, redirecting to login:', error);
     return NextResponse.redirect(new URL('/admin/login', req.url));
