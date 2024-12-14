@@ -1,22 +1,28 @@
+/* Color 1 */
 :root {
   /* Primary Colors */
-  --color-primary: #FF4500;
-  --color-secondary: #D83700;
+  --color-primary: #00ADB5;           /* Vibrant teal - bright and eye-catching for primary actions */
+  --color-secondary: #222831;         /* Dark slate gray - strong and bold for secondary elements */
 
   /* Neutral Colors */
-  --color-black: #000000;
-  --color-white: #FFFFFF; 
-  --color-light-gray: #F4F4F4; 
-  --color-dark-gray: #A9A9A9;
+  --color-black: #222831;             /* Deep slate black for text and dark sections */
+  --color-white: #EEEEEE;             /* Light grayish-white for backgrounds, sections, or cards */
+  --color-light-gray: #EEEEEE;        /* Soft gray for borders, cards, or light background sections */
+  --color-dark-gray: #393E46;         /* Dark gray for secondary text and subtle details */
 
   /* Hover Colors */
-  --color-hover-primary: #D83700; 
-
+  --color-hover-primary: #00B1A1;     /* Slightly darker teal for hover effects */
+  
   /* Border Colors */
-  --color-border-gray: #E0E0E0;
+  --color-border-gray: #B0BEC5;       /* Light gray for borders and dividers */
+  
   /* Additional Colors */
-  --color-success: #4CAF50;
-  --color-error: #FF4500;
+  --color-success: #4CAF50;           /* Soft green for success messages */
+  --color-error: #F44336;             /* Bold red for error messages */
+  
+  /* Accent Colors */
+  --color-accent: #FFEB3B;            /* Bright yellow for highlights and active items */
+  --color-warning: #FF7043;           /* Warm orange for warning alerts */
 }
 
 body {
@@ -25,4 +31,8 @@ body {
   font-family: Arial, sans-serif;
   background-color: var(--color-light-gray);
   color: var(--color-black);
+}
+
+main {
+  flex: 1;
 }

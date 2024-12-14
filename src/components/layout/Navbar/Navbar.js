@@ -6,6 +6,7 @@ import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); 
   const router = useRouter();
 
   useEffect(() => {
@@ -26,61 +27,38 @@ const Navbar = () => {
     fetchData();
   }, [router]);
 
-
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+  
   return (
     <nav className={styles.navbar}>
       <div className={styles.logo}>VisionWorks</div>
-      <ul className={styles.navLinks}>
+      <div className={`${styles.hamburger} ${menuOpen ? styles.active : ''}`} onClick={toggleMenu}>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul className={`${styles.navLinks} ${menuOpen ? styles.active : ''}`}>
         {isAdmin ? (
           <>
-            <li>
-              <Link href="/admin/addPage" className={styles.navLink}>
-                Add Page
-              </Link>
-            </li>
-            <li>
-              <Link href="/admin/uploadImage" className={styles.navLink}>
-                Image Upload
-              </Link>
-            </li>
-            <li>
-              <Link href="/admin/register" className={styles.navLink}>
-                Register
-              </Link>
-            </li>
-            <li>
-              <Link href="/admin/manageImages" className={styles.navLink}>
-                Manage Images
-              </Link>
-            </li>
+            <li><Link href="/admin/addPage" className={styles.navLink}>Add Page</Link></li>
+            <li><Link href="/admin/uploadImage" className={styles.navLink}>Image Upload</Link></li>
+            <li><Link href="/admin/register" className={styles.navLink}>Register</Link></li>
+            <li><Link href="/admin/manageImages" className={styles.navLink}>Manage Images</Link></li>
           </>
         ) : (
           <>
-            <li>
-              <Link href="/" className={styles.navLink}>
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className={styles.navLink}>
-                Contact
-              </Link>
-            </li>
-            <li>
-              <Link href="/dashboard" className={styles.navLink}>
-                Dashboard
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className={styles.navLink}>
-                About
-              </Link>
-            </li>
+            <li><Link href="/" className={styles.navLink}>Home</Link></li>
+            <li><Link href="/contact" className={styles.navLink}>Contact</Link></li>
+            <li><Link href="/dashboard" className={styles.navLink}>Dashboard</Link></li>
+            <li><Link href="/about" className={styles.navLink}>About</Link></li>
           </>
         )}
       </ul>
     </nav>
   );
 };
+
 
 export default Navbar;

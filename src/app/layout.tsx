@@ -34,9 +34,11 @@ export default function RootLayout({
         />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Navbar/>
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable}`} style={{ paddingTop: '60px', paddingBottom: '60px' }}>
+        <Navbar />
+        <main style={{ flex: 1 }}>
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

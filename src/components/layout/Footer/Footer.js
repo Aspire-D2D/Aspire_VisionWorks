@@ -1,30 +1,32 @@
 import Link from 'next/link';
+import styles from './Footer.module.css';
 
 const Footer = () => {
   return (
-    <footer style={{ padding: '2rem, 1rem', backgroundColor: '#333', color: 'white', marginTop: '2rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>
-          <h3>Aspire D2D</h3>
-          <p>Project: VisionWorks</p>
+    <footer className={styles.footer}>
+      <div className={styles.footerContent}>
+        <div className={styles.footerHeading}>
+          <h3>VisionWorks</h3>
+          <p>Innovation of: Aspire Design and Development</p>
         </div>
 
-        <div style={{ display: 'flex', gap: '15px' }}>
-          <Link href="https://www.facebook.com" target="_blank" style={{ color: 'white' }}>
+        <div className={styles.footerLinks}>
+          <Link href="https://www.facebook.com" target="_blank">
             Facebook
           </Link>
-          <Link href="https://www.twitter.com" target="_blank" style={{ color: 'white' }}>
+          <Link href="https://www.twitter.com" target="_blank">
             Twitter
           </Link>
-          <Link href="https://www.linkedin.com" target="_blank" style={{ color: 'white' }}>
+          <Link href="https://www.linkedin.com" target="_blank">
             LinkedIn
           </Link>
-          <Link href="https://www.instagram.com" target="_blank" style={{ color: 'white' }}>
+          <Link href="https://www.instagram.com" target="_blank">
             Instagram
           </Link>
         </div>
       </div>
-      <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+
+      <div className={styles.footerCopyright}>
         <p>&copy; {new Date().getFullYear()} Aspire D2D. All rights reserved.</p>
       </div>
     </footer>
