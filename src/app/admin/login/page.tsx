@@ -40,6 +40,18 @@ export default function AdminLogin() {
     }
   };
 
+  // Authorization
+  useEffect(() => {
+    const isAuthorized = Cookies.get('isAuthorized');
+
+    if (isAuthorized !== 'true') {
+      alert('You are not authorized to access this page. Please verify using the passcode.');
+      router.push('/authorize');
+    } else {
+      console.log('User is authorized');
+    }
+  }, [router]);
+
   useEffect(() => {
     const token = Cookies.get('token');
     if (token) {
