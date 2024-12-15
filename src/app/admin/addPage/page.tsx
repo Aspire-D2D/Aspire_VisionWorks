@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import Swal from 'sweetalert2';
+import styles from './AddPage.module.css';
 
 export default function AddPage() {
   const [pageName, setPageName] = useState('');
@@ -46,42 +47,55 @@ export default function AddPage() {
   };
 
   return (
-    <div>
-      <h1>Add New Page</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Page Name</label>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Add New Page</h1>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        {/* Page Name Input */}
+        <div className={styles.formGroup}>
+          <label htmlFor="pageName" className={styles.label}>
+            Page Name
+          </label>
           <input
             type="text"
+            id="pageName"
             value={pageName}
             onChange={(e) => setPageName(e.target.value)}
+            placeholder="Enter page name"
+            className={styles.input}
             required
           />
         </div>
 
-        <div>
-          <label>
+        {/* Star Rating Checkbox */}
+        <div className={styles.formGroupCheckbox}>
+          <label className={styles.checkboxLabel}>
             <input
               type="checkbox"
               checked={starRatingSelected}
               onChange={() => setStarRatingSelected(!starRatingSelected)}
+              className={styles.checkbox}
             />
             Star Rating
           </label>
         </div>
 
-        <div>
-          <label>
+        {/* Description Checkbox */}
+        <div className={styles.formGroupCheckbox}>
+          <label className={styles.checkboxLabel}>
             <input
               type="checkbox"
               checked={descriptionSelected}
               onChange={() => setDescriptionSelected(!descriptionSelected)}
+              className={styles.checkbox}
             />
             Description
           </label>
         </div>
 
-        <button type="submit">Add Page</button>
+        {/* Submit Button */}
+        <button type="submit" className={styles.submitButton}>
+          Add Page
+        </button>
       </form>
     </div>
   );

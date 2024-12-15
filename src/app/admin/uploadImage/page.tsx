@@ -25,12 +25,11 @@ const UploadPage = () => {
   const [description, setDescription] = useState(false);
   const [ratingValue, setRatingValue] = useState(0);
   const [testimonialText, setTestimonialText] = useState('');
+  const [pageIdentity, setPageIdentity] = useState('');
   const [pageNameError, setPageNameError] = useState('');
+  const [imageValidationError, setImageValidationError] = useState<string | null>(null);
   const router = useRouter();
-  const [dynamicWidth, setDynamicWidth] = useState(0);
-  const [dynamicHeight, setDynamicHeight] = useState(0);
   const pathname = usePathname();
-  const imgRef = useRef<HTMLImageElement | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -91,7 +90,7 @@ const UploadPage = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
-
+  
     if (file && !file.type.startsWith("image/")) {
       Swal.fire({
         title: "Invalid File Type",
@@ -103,37 +102,25 @@ const UploadPage = () => {
     }
   
     if (file) {
+      const nameWithoutExtension = file.name.replace(/\.[^/.]+$/, '');
+      setImageName(nameWithoutExtension); 
+  
+      const previewUrl = URL.createObjectURL(file);
+      setImagePreview(previewUrl);
+    
       handleFileSelection(file);
     }
-
-    // handleFileSelection(file);
-    // setImage(file);
-  
-    // if (file) {
-    //   const previewUrl = URL.createObjectURL(file);
-    //   setImagePreview(previewUrl);
-    //   setImageUrl('');
-    //   setImageName(file.name);
-  
-    //   const img = new Image();
-    //   img.src = previewUrl;
-    //   img.onload = () => {
-    //     setDynamicWidth(img.width);
-    //     setDynamicHeight(img.height);
-    //   };
-    // } else {
-    //   setImagePreview(null);
-    // }
   };
   
   const handleFileSelection = (file: File | null) => {
     if (file) {
       setImage(file);
-      setImageName(file.name);
       const previewUrl = URL.createObjectURL(file);
       setImagePreview(previewUrl);
     }
   };
+  
+  
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -153,21 +140,8 @@ const UploadPage = () => {
     e.preventDefault();
     e.stopPropagation();
   };
-  
 
-  const handleImageUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const url = e.target.value;
-    setImageUrl(url);
-
-    if (url) {
-      setImagePreview(url);
-      setImage(null); // Clear image file preview if an image URL is entered
-    } else {
-      setImagePreview(null);
-    }
-  };
-
-  const handlePageNameChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handlePageNameChange = async  (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedPage = e.target.value;
     setPageName(selectedPage);
     setPageNameError(''); 
@@ -178,19 +152,45 @@ const UploadPage = () => {
       setStarRating(selectedPageDetails.starRatingEnabled);
       setDescription(selectedPageDetails.descriptionEnabled);
     }
+
+    if (selectedPage) {
+      try {
+        const response = await axios.get(`/api/pageIdentity?pageName=${selectedPage}`);
+        const availableIdentities = response.data.identities;
+        setPageIdentity(availableIdentities.length ? availableIdentities[0] : ''); 
+      } catch (error) {
+        console.error('Error fetching page identity:', error);
+      }
+    }
   };
 
   const handleImageNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setImageName(e.target.value); // Handle image name input change
+    let name = e.target.value;
+    name = name.replace(/\.[^/.]+$/, '');
+    console.log("Image Name", name);
+    setImageName(name);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
-    if (!pageName) {
-      setPageNameError('Page Name is mandatory');
+    if (!image && !imageUrl) {
+      setImageValidationError('Please upload an image.');
+      return;
+    } else {
+      setImageValidationError(null);
+    }
+
+    if (!pageName || !pageIdentity) {
+      setPageNameError('Page Name and Identity are mandatory');
       return;
     }
+
+    // Log the values for debugging
+    console.log('Submitting Form:');
+    console.log('Page Name:', pageName);
+    console.log('Page Identity:', pageIdentity);
+  
     setLoading(true);
     setAlertImage(null);
   
@@ -204,13 +204,12 @@ const UploadPage = () => {
       // formData.append('user_id', userId);
     }
 
-    
     if (image) {
       const fileExtension = image.name.split('.').pop() || 'jpeg';
       let fullImageName = imageName;
   
       if (!fullImageName.toLowerCase().endsWith(`.${fileExtension}`)) {
-        fullImageName = `${imageName}.${fileExtension}`; 
+        fullImageName = `${fullImageName}.${fileExtension}`; 
       }
   
       formData.append('image', image);
@@ -223,6 +222,9 @@ const UploadPage = () => {
   
     if (pageName) {
       formData.append('page_name', pageName);
+    }
+    if (pageIdentity) {
+      formData.append('identity', pageIdentity); // Add page identity to the form data
     }
     if (starRating) {
       formData.append('star_rating', ratingValue.toString());
@@ -249,6 +251,7 @@ const UploadPage = () => {
       setImage(null);
       setImageUrl('');
       setPageName('');
+      setPageIdentity('');
       setStarRating(false);
       setDescription(false);
       setRatingValue(0);
@@ -270,9 +273,6 @@ const UploadPage = () => {
       setLoading(false);
     }
   };
-  
-  
-  
   
   if (loading) {
     return (
@@ -312,21 +312,6 @@ const UploadPage = () => {
   </div>
 
   <form onSubmit={handleSubmit} className={styles.form}>
-    {/* <div className={styles.formGroup}>
-      <label className={styles.label}>Image File</label>
-      <input type="file" onChange={handleFileChange} className={styles.input} />
-    </div> */}
-    <div className={styles.formGroup}>
-      <label className={styles.label}>Image URL</label>
-      <input
-        type="url"
-        value={imageUrl}
-        onChange={handleImageUrlChange}
-        placeholder="Enter image URL"
-        className={styles.input}
-      />
-    </div>
-
     <div className={styles.formGroup}>
       <label className={styles.label}>Image Name</label>
       <input
@@ -336,6 +321,14 @@ const UploadPage = () => {
         placeholder="Enter a custom name for the image"
         className={styles.input}
       />
+          {imageValidationError && (
+      <span className={styles.error}>
+        <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: 'red' }}>
+          error
+        </span>
+        {imageValidationError}
+      </span>
+    )}
     </div>
 
     <div className={styles.formGroup}>
@@ -361,6 +354,23 @@ const UploadPage = () => {
     </span>
   )}
 </div>
+{/* Page Identity Dropdown */}
+{pageName && (
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Page Identity</label>
+            <select
+              value={pageIdentity}
+              onChange={(e) => setPageIdentity(e.target.value)}
+              className={styles.select}
+            >
+              <option value="">Select Identity</option>
+              <option value="hero">Hero</option>
+              <option value="banner">Banner</option>
+              <option value="testimonial">Testimonial</option>
+              {/* Add other options as required */}
+            </select>
+          </div>
+        )}
 
     {starRating && (
       <div className={styles.formGroup}>
@@ -402,27 +412,19 @@ const UploadPage = () => {
   {status && <p className={styles.status}>{status}</p>}
 
   <div className={styles.preview}>
-    <h3 className={styles.previewTitle}>Image Preview:</h3>
-    {imagePreview ? (
-      <NextImage
-        src={imagePreview}
-        alt="Image preview"
-        width={300}
-        height={200}
-        style={{ maxWidth: "100%", height: "auto" }}
-      />
-    ) : imageUrl ? (
-      <NextImage
-        src={imageUrl}
-        alt="Image preview from URL"
-        width={300}
-        height={200}
-        style={{ maxWidth: "100%", height: "auto" }}
-      />
-    ) : (
-      <p className={styles.noPreview}>No preview available.</p>
-    )}
-  </div>
+  <h3 className={styles.previewTitle}>Image Preview:</h3>
+{imagePreview ? (
+  <NextImage
+    src={imagePreview}
+    alt="Image preview"
+    width={300}
+    height={200}
+    style={{ maxWidth: "100%", height: "auto" }}
+  />
+) : (
+  <p className={styles.noPreview}>No preview available.</p>
+)}
+</div>
 </div>
 
   );

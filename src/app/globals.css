@@ -23,16 +23,33 @@
   /* Accent Colors */
   --color-accent: #FFEB3B;            /* Bright yellow for highlights and active items */
   --color-warning: #FF7043;           /* Warm orange for warning alerts */
+  --color-warning-dark: #FF5722; 
+}
+
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: var(--color-light-gray);
-  color: var(--color-black);
+  display: flex;
+  flex-direction: column;
 }
 
 main {
-  flex: 1;
+  flex: 1; /* Ensures content takes up remaining space */
+}
+
+footer {
+  /* Optional: Adjust footer styling to make it look better at the bottom */
+  margin-top: auto; /* Pushes footer to the bottom */
 }

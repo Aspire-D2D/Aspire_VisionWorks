@@ -28,12 +28,6 @@ export async function middleware(req) {
     res.headers.set('X-Is-Admin', isAdmin ? 'true' : 'false');
     return res;
 
-    // if (payload.role === 'admin') {
-    //   return NextResponse.next();
-    // } else {
-    //   console.log('User is not admin, redirecting to login');
-    //   return NextResponse.redirect(new URL('/admin/login', req.url));
-    // }
   } catch (error) {
     console.log('Token verification failed, redirecting to login:', error);
     return NextResponse.redirect(new URL('/admin/login', req.url));
@@ -41,5 +35,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ['/dashboard', '/admin/uploadImage'], // Include all protected routes
+  matcher: ['/dashboard', '/admin/uploadImage', '/admin/addPage', '/admin/register', '/admin/manageImages'], // Include all protected routes
 };

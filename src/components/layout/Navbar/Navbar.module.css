@@ -4,17 +4,19 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background: linear-gradient(135deg, var(--color-primary, #0077cc), var(--color-secondary, #005fa3));
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   position: fixed;
-  width: 100%;
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 1000;
-  transition: all 0.3s ease;
+  transition: box-shadow 0.3s ease;
 }
 
 /* Hover shadow effect */
-.navbar:hover {
+.navbar:hover,
+.navbar.scroll-shadow {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -22,14 +24,13 @@
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: var(--color-white);
+  color: var(--color-white, #fff);
   text-transform: uppercase;
   letter-spacing: 2px;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
 
-/* Logo hover effect */
 .logo:hover {
   transform: scale(1.1);
 }
@@ -43,9 +44,8 @@
   margin: 0;
 }
 
-/* Individual link styles */
 .navLink {
-  color: var(--color-white);
+  color: var(--color-white, #fff);
   text-decoration: none;
   font-size: 1.1rem;
   font-weight: 500;
@@ -53,12 +53,11 @@
   transition: color 0.3s ease;
 }
 
-/* Hover effect on links */
+/* Hover Effect with Underline Animation */
 .navLink:hover {
-  color: var(--color-hover-primary);
+  color: var(--color-hover-primary, #ffcc00);
 }
 
-/* Underline animation effect */
 .navLink::after {
   content: '';
   position: absolute;
@@ -66,19 +65,33 @@
   bottom: -5px;
   width: 100%;
   height: 2px;
-  background-color: var(--color-hover-primary);
+  background-color: var(--color-hover-primary, #ffcc00);
   transform: scaleX(0);
   transform-origin: bottom right;
   transition: transform 0.3s ease;
 }
 
-/* Show underline on hover */
 .navLink:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
 
-/* Mobile Navbar (Hamburger menu) */
+/* Logout Link */
+.logoutLink {
+  background-color: var(--color-warning, #ff5733);
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: var(--color-white, #fff);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.logoutLink:hover {
+  background-color: var(--color-warning-dark, #d1452c);
+  transform: scale(1.05);
+}
+
+/* Mobile Navbar (Hamburger Menu) */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
@@ -86,19 +99,21 @@
     padding: 1rem;
   }
 
-  /* Logo for mobile */
   .logo {
     margin-bottom: 1rem;
     font-size: 1.8rem;
   }
 
-  /* Navigation Links on mobile */
   .navLinks {
+    display: none;
     flex-direction: column;
     gap: 15px;
-    display: none;
     width: 100%;
     text-align: center;
+  }
+
+  .navLinks.active {
+    display: flex;
   }
 
   /* Hamburger Icon */
@@ -111,9 +126,8 @@
     z-index: 1001;
   }
 
-  /* Hamburger Bars */
   .hamburger div {
-    background-color: var(--color-white);
+    background-color: var(--color-white, #fff);
     height: 4px;
     width: 100%;
     position: absolute;
@@ -132,7 +146,6 @@
     top: 16px;
   }
 
-  /* Active class for hamburger menu */
   .hamburger.active div:nth-child(1) {
     transform: rotate(45deg);
     top: 8px;
@@ -146,14 +159,4 @@
     transform: rotate(-45deg);
     top: 8px;
   }
-
-  /* Show menu when hamburger is clicked */
-  .navLinks.active {
-    display: flex;
-  }
-}
-
-/* Optional Scroll Shadow effect */
-.navbar.scroll-shadow {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }

@@ -1,60 +1,72 @@
-/* Footer container */
-.footer {
+
+  /* Footer Container */
+  .footer {
+    background-color: var(--color-black, #000);
+    color: var(--color-white, #fff);
+    border-top: 4px solid var(--color-primary, #00bcd4);
     padding: 2rem 1rem;
-    background-color: var(--color-black);
-    color: var(--color-white);
-    margin-top: 2rem;
     font-family: Arial, sans-serif;
-    border-top: 4px solid var(--color-primary);
+    text-align: center;
   }
   
-  /* Footer content section */
+  /* Footer Content Layout */
   .footerContent {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--color-border-gray);
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--color-border-gray, #444);
     padding-bottom: 1rem;
   }
   
-  /* Footer heading and project name */
-  .footerHeading {
-    margin: 0;
-  }
-  
+  /* Footer Heading Section */
   .footerHeading h3 {
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(--color-primary);
+    color: var(--color-primary, #00bcd4);
+    margin-bottom: 0.5rem;
   }
   
   .footerHeading p {
-    margin: 0;
     font-size: 1rem;
-    color: var(--color-light-gray);
+    color: var(--color-light-gray, #aaa);
   }
   
-  /* Social media links section */
+  /* Footer Links Section */
   .footerLinks {
     display: flex;
     gap: 20px;
   }
   
   .footerLinks a {
-    color: var(--color-white);
+    color: var(--color-white, #fff);
     text-decoration: none;
     font-size: 1rem;
     transition: color 0.3s ease;
   }
   
   .footerLinks a:hover {
-    color: var(--color-hover-primary);
+    color: var(--color-hover-primary, #00e5ff);
   }
   
-  /* Copyright section */
+  /* Copyright Section */
   .footerCopyright {
     margin-top: 1rem;
-    text-align: center;
-    font-size: 1rem;
-    color: var(--color-light-gray);
+    font-size: 0.9rem;
+    color: var(--color-light-gray, #aaa);
   }
+  
+  /* Mobile Responsive Design */
+  @media (max-width: 768px) {
+    .footerContent {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .footerLinks {
+      margin-top: 1rem;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+  

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import AdminRegisterForm from '../../../components/forms/AdminRegisterForm';
 import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
+import styles from './RegisterPage.module.css'; // Importing the CSS module
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -40,9 +41,11 @@ export default function RegisterPage() {
   };
 
   return (
-    <div>
-      <h1>Admin Registration</h1>
-      <AdminRegisterForm onSuccess={handleSuccess} />
+    <div className={styles.container}>
+      <h1 className={styles.title}>Admin Registration</h1>
+      <div className={styles.formContainer}>
+        <AdminRegisterForm onSuccess={handleSuccess} />
+      </div>
     </div>
   );
 }

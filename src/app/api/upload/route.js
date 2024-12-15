@@ -38,10 +38,15 @@ export async function POST(req) {
 
     let image_url = '';
     let image = null;
-    let page_name = formData.page_name || 'default_page';
+    let page_name = formData.page_name;
+    let identity_name = formData.identity; // Add identity from form data
     let image_name = formData.image_name || 'uploaded_image';
     let star_rating = null;
     let testimonial_text = '';
+
+    if (!page_name || !identity_name) {
+      return NextResponse.json({ message: 'page_name and identity are required.' }, { status: 400 });
+    }
 
     if (formData.image_url) {
       image_url = formData.image_url;
@@ -60,9 +65,27 @@ export async function POST(req) {
       testimonial_text = formData.testimonial_text;
     }
 
-    if (!image_url && !image) {
-      return NextResponse.json({ message: 'Please provide either an image file or an image URL.' }, { status: 400 });
+    // Validate page_name and identity_name
+    const pageQuery = 'SELECT 1 FROM pages WHERE page_name = $1';
+    const pageResult = await query(pageQuery, [page_name]);
+
+    if (pageResult.rowCount === 0) {
+      return NextResponse.json({ message: `No page found with page_name: ${page_name}` }, { status: 400 });
     }
+
+    const identityQuery = `
+      SELECT identity 
+      FROM PageIdentities 
+      WHERE page_name = $1 AND identity = $2`;
+    const identityResult = await query(identityQuery, [page_name, identity_name]);
+
+    if (identityResult.rowCount === 0) {
+      return NextResponse.json({
+        message: `No identity '${identity_name}' found for page_name: ${page_name}`
+      }, { status: 400 });
+    }
+
+    const identity = identityResult.rows[0].identity;
 
     if (image) {
       const fileExtension = mime.extension(formData.mimetype) || 'jpeg';
@@ -75,8 +98,10 @@ export async function POST(req) {
       console.log("Uploaded image URL:", image_url);
     }
 
-    const queryText = 'INSERT INTO ImageUploads (image_url, image_name, status, page_name, testimonial_text, star_rating) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
-    const values = [image_url, image_name, 'active', page_name, testimonial_text, star_rating];
+    const queryText = `
+      INSERT INTO ImageUploads (image_url, image_name, status, page_name, testimonial_text, star_rating, identity) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+    const values = [image_url, image_name, 'active', page_name, testimonial_text, star_rating, identity];
 
     const result = await query(queryText, values);
 
@@ -113,6 +138,8 @@ function parseMultipartData(body, boundary) {
           formData.mimetype = headers.toString().match(/Content-Type: ([^;]+)/)?.[1] || 'image/jpeg';
         } else if (name === 'page_name') {
           formData.page_name = content.toString().trim();
+        } else if (name === 'identity') { // Extract identity from form
+          formData.identity = content.toString().trim();
         } else if (name === 'image_name') {
           formData.image_name = content.toString().trim();
         } else if (name === 'star_rating') {
@@ -128,7 +155,7 @@ function parseMultipartData(body, boundary) {
 }
 
 function getCleanImageName(imageName, fileExtension) {
-  const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
+  const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'];
   const currentExtension = imageName.split('.').pop().toLowerCase();
   imageName = imageName.replace(/\s+/g, '_');
 
