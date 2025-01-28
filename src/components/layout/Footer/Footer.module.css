@@ -1,72 +1,93 @@
+.footer {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 10px 15px;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
 
-  /* Footer Container */
-  .footer {
-    background-color: var(--color-black, #000);
-    color: var(--color-white, #fff);
-    border-top: 4px solid var(--color-primary, #00bcd4);
-    padding: 2rem 1rem;
-    font-family: Arial, sans-serif;
-    text-align: center;
-  }
-  
-  /* Footer Content Layout */
-  .footerContent {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    border-bottom: 1px solid var(--color-border-gray, #444);
-    padding-bottom: 1rem;
-  }
-  
-  /* Footer Heading Section */
-  .footerHeading h3 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--color-primary, #00bcd4);
-    margin-bottom: 0.5rem;
-  }
-  
-  .footerHeading p {
-    font-size: 1rem;
-    color: var(--color-light-gray, #aaa);
-  }
-  
-  /* Footer Links Section */
-  .footerLinks {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .footerLinks a {
-    color: var(--color-white, #fff);
-    text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-  }
-  
-  .footerLinks a:hover {
-    color: var(--color-hover-primary, #00e5ff);
-  }
-  
-  /* Copyright Section */
-  .footerCopyright {
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    color: var(--color-light-gray, #aaa);
-  }
-  
-  /* Mobile Responsive Design */
-  @media (max-width: 768px) {
-    .footerContent {
-      flex-direction: column;
-      text-align: center;
-    }
-  
-    .footerLinks {
-      margin-top: 1rem;
-      flex-direction: column;
-      gap: 10px;
-    }
-  }
-  
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footerLeft {
+  text-align: left;
+}
+
+.footerLeft h3 {
+  font-size: 1rem;
+  margin: 0;
+  color: var(--color-accent);
+}
+
+.footerLeft p {
+  margin: 5px 0;
+  font-size: 0.875rem;
+  color: var(--color-light-gray);
+}
+
+.footerRight {
+  text-align: right;
+}
+
+.footerRight p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-light-gray);
+}
+
+.footerLinks {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.footerLinks a {
+  color: var(--color-white);
+  transition: color 0.3s ease;
+}
+
+.footerLinks a:hover {
+  color: var(--color-accent);
+}
+
+.icon {
+  font-size: 1.2rem;
+  color: var(--color-white);
+}
+
+.footerCopyright {
+  margin-top: 5px;
+  font-size: 0.75rem;
+  color: var(--color-light-gray);
+}
+
+.footerSocialMedia {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* This ensures a 10px gap between each icon */
+  margin-top: 10px;
+}
+
+.footerSocialMedia a {
+  color: var(--color-white);
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.footerSocialMedia a:hover {
+  color: var(--color-accent-light);
+}
+
+.footerSocialMedia .icon {
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.footerSocialMedia a:hover .icon {
+  color: var(--color-secondary); /* Ensure the icon itself changes color on hover */
+}

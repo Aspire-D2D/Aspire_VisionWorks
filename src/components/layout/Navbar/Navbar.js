@@ -8,7 +8,7 @@ import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const [isAdmin, setIsAdmin] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); 
+  const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -36,19 +36,22 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    Cookies.remove('token'); 
+    Cookies.remove('token');
     setTimeout(() => {
-      setLoading(false); 
+      setLoading(false);
       router.push('/admin/login');
     }, 1500);
   };
-  
+
+  // Function to check if the current route matches the link
+  const isActive = (path) => router.pathname === path;
+
   return (
     <>
       {loading && <Loader />} {/* Show loader when loading is true */}
-      
+
       <nav className={styles.navbar}>
-        <div className={styles.logo}>VisionWorks</div>
+        <div className={styles.logo}>{isAdmin ? 'VisionWorks' : 'Aspire D2D'}</div>
         <div className={`${styles.hamburger} ${menuOpen ? styles.active : ''}`} onClick={toggleMenu}>
           <div></div>
           <div></div>
@@ -57,18 +60,36 @@ const Navbar = () => {
         <ul className={`${styles.navLinks} ${menuOpen ? styles.active : ''}`}>
           {isAdmin ? (
             <>
-              <li><Link href="/admin/addPage" className={styles.navLink}>Add Page</Link></li>
-              <li><Link href="/admin/uploadImage" className={styles.navLink}>Image Upload</Link></li>
-              <li><Link href="/admin/register" className={styles.navLink}>Register</Link></li>
-              <li><Link href="/admin/manageImages" className={styles.navLink}>Manage Images</Link></li>
-              <li><Link href="/admin/login" className={`${styles.navLink} ${styles.logoutLink}`} onClick={handleLogout}>Logout</Link></li>
+              <li>
+                <Link href="/admin/addPage" className={`${styles.navLink} ${isActive('/admin/addPage') ? styles.active : ''}`}>Add Page</Link>
+              </li>
+              <li>
+                <Link href="/admin/uploadImage" className={`${styles.navLink} ${isActive('/admin/uploadImage') ? styles.active : ''}`}>Image Upload</Link>
+              </li>
+              <li>
+                <Link href="/admin/register" className={`${styles.navLink} ${isActive('/admin/register') ? styles.active : ''}`}>Register</Link>
+              </li>
+              <li>
+                <Link href="/admin/manageImages" className={`${styles.navLink} ${isActive('/admin/manageImages') ? styles.active : ''}`}>Manage Images</Link>
+              </li>
+              <li>
+                <Link href="/admin/login" className={`${styles.navLink} ${styles.logoutLink}`} onClick={handleLogout}>Logout</Link>
+              </li>
             </>
           ) : (
             <>
-              <li><Link href="/" className={styles.navLink}>Home</Link></li>
-              <li><Link href="/contact" className={styles.navLink}>Contact</Link></li>
-              <li><Link href="/dashboard" className={styles.navLink}>Dashboard</Link></li>
-              <li><Link href="/about" className={styles.navLink}>About</Link></li>
+              <li>
+                <Link href="/" className={`${styles.navLink} ${isActive('/') ? styles.active : ''}`}>Home</Link>
+              </li>
+              <li>
+                <Link href="/about" className={`${styles.navLink} ${isActive('/about') ? styles.active : ''}`}>About</Link>
+              </li>
+              <li>
+                <Link href="/projects" className={`${styles.navLink} ${isActive('/Projects') ? styles.active : ''}`}>Projects</Link>
+              </li>
+              <li>
+                <Link href="/contact" className={`${styles.navLink} ${isActive('/contact') ? styles.active : ''}`}>Contact Us</Link>
+              </li>
             </>
           )}
         </ul>
@@ -76,6 +97,5 @@ const Navbar = () => {
     </>
   );
 };
-
 
 export default Navbar;

@@ -1,0 +1,246 @@
+/* General Container */
+.container {
+  padding: 40px 20px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sections */
+.featuresSection, .teamSection {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 60px 0;
+}
+
+/* Titles */
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: var(--color-heading-primary);
+}
+
+.subtitle {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: var(--color-heading-secondary);
+}
+
+/* Why Choose Us Section */
+.featuresGrid {
+  display: flex;
+  justify-content: space-between; /* Space the items evenly */
+  align-items: flex-start; /* Align items to the top */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 20px; /* Adjust space between cards */
+  margin-top: 20px;
+}
+
+/* Individual Card Layout */
+.card {
+  background: rgba(54, 33, 33, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 20px;
+  width: 250px; /* Fixed width for consistency */
+  height: 300px; /* Fixed height for feature cards */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Center content horizontally */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon Alignment */
+.card .icon {
+  font-size: 3rem;
+  color: var(--color-accent-light);
+  margin-bottom: 15px;
+  width: 60px; /* Ensure all icons have the same width */
+  height: 60px; /* Ensure all icons have the same height */
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center the icon */
+}
+
+/* Card Title */
+.cardTitle {
+  font-size: 1.5rem;
+  color: var(--color-white);
+  margin-bottom: 10px;
+}
+
+/* Card Description */
+.cardDescription {
+  font-size: 1rem;
+  color: var(--color-light-gray);
+}
+
+/* Team Section */
+.teamGrid {
+  display: flex;
+  justify-content: space-between; /* Space the items evenly */
+  align-items: flex-start; /* Align items to the top */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 20px; /* Adjust space between cards */
+  margin-top: 20px;
+}
+
+.teamMember {
+  background: rgba(54, 33, 33, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 20px;
+  width: 250px; /* Fixed width for consistency */
+  height: 350px; /* Fixed height for team member cards */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hover Effects for Card and Team Member */
+.card:hover, .teamMember:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Team Member Image */
+.memberImage {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid var(--color-accent-light);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: scale(1.1);
+}
+
+/* Team Member Name, Role, and Experience */
+.memberName {
+  font-size: 1.5rem;
+  color: var(--color-accent);
+}
+
+.memberRole {
+  font-size: 1.2rem;
+  color: var(--color-heading-secondary);
+}
+
+.memberExperience {
+  font-size: 1rem;
+  color: var(--color-light-gray);
+}
+
+/* Responsive Styles for Smaller Screens */
+@media (max-width: 768px) {
+  .featuresGrid {
+    flex-direction: column; /* Stack the items vertically on smaller screens */
+    align-items: center;
+  }
+
+  .card, .teamMember {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+  }
+
+  .title, .subtitle {
+    font-size: 2rem;
+  }
+
+  .teamButton {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title, .subtitle {
+    font-size: 1.5rem;
+  }
+
+  .teamButton {
+    font-size: 0.8rem;
+  }
+}
+
+/* Background Circles */
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: move 20s infinite;
+  filter: blur(30px);
+  z-index: 0;
+}
+
+.circle1 {
+  width: 180px;
+  height: 180px;
+  top: 5%;
+  left: 25%;
+}
+
+.circle2 {
+  width: 150px;
+  height: 150px;
+  top: 40%;
+  left: 1%;
+}
+
+.circle3 {
+  width: 190px;
+  height: 190px;
+  top: 70%;
+  left: 20%;
+}
+
+.circle4 {
+  width: 170px;
+  height: 170px;
+  top: 80%;
+  left: 70%;
+}
+
+.circle5 {
+  width: 160px;
+  height: 160px;
+  top: 10%;
+  left: 80%;
+}
+
+.circle6 {
+  width: 140px;
+  height: 140px;
+  top: 50%;
+  left: 90%;
+}
+
+@keyframes move {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  20% {
+    transform: translateY(-30px) translateX(30px);
+  }
+  40% {
+    transform: translateY(30px) translateX(-30px);
+  }
+  60% {
+    transform: translateY(-40px) translateX(40px);
+  }
+  80% {
+    transform: translateY(40px) translateX(-40px);
+  }
+}

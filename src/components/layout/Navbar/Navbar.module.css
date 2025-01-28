@@ -4,27 +4,22 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, var(--color-primary, #0077cc), var(--color-secondary, #005fa3));
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: var(--color-primary);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  transition: box-shadow 0.3s ease;
+  background-clip: padding-box; /* Ensures the background extends to the edges */
 }
 
-/* Hover shadow effect */
-.navbar:hover,
-.navbar.scroll-shadow {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-}
 
 /* Logo styling */
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--color-white, #fff);
+  padding: 0 40px;
   text-transform: uppercase;
   letter-spacing: 2px;
   cursor: pointer;
@@ -40,7 +35,7 @@
   display: flex;
   gap: 30px;
   list-style: none;
-  padding: 0;
+  padding: 0 40px;
   margin: 0;
 }
 
@@ -112,9 +107,10 @@
     text-align: center;
   }
 
-  .navLinks.active {
+  /* .navLinks.active {
     display: flex;
-  }
+  } */
+
 
   /* Hamburger Icon */
   .hamburger {
