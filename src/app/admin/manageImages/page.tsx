@@ -15,15 +15,16 @@ const manageImages = () => {
     if (!confirmDelete) return;
   
     try {
-      const response = await fetch(`/api/manage-images/${id}`, {
+      const response = await fetch(`/api/manage-images/${id}`, {  // Correct endpoint
         method: 'DELETE',
       });
   
       if (response.ok) {
         alert('Image deleted successfully');
-        fetchImages();  // Refresh the images list
+        fetchImages(); // Refresh the images list
       } else {
-        console.error('Failed to delete image:', await response.text());
+        const errorData = await response.json();
+        console.error('Failed to delete image:', errorData.error);
       }
     } catch (error) {
       console.error('Error deleting image:', error);
