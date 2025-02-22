@@ -36,16 +36,10 @@ export default function Contact() {
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.circle} ${styles.circle1}`}></div>
-      <div className={`${styles.circle} ${styles.circle2}`}></div>
-      <div className={`${styles.circle} ${styles.circle3}`}></div>
-      <div className={`${styles.circle} ${styles.circle4}`}></div>
-      <div className={`${styles.circle} ${styles.circle5}`}></div>
-      <div className={`${styles.circle} ${styles.circle6}`}></div>
       <section className={styles.infoSection}>
+        <h2>We’re Here to Help</h2>
         <p>
-          We’re here to help! Whether you need to schedule an appointment, inquire about our services, or get expert advice, our friendly
-          team is ready to assist.
+          Whether you need to schedule an appointment, inquire about our services, or get expert advice, our friendly team is ready to assist.
         </p>
         <ul className={styles.contactList}>
           <li><FaPhone className={styles.icon} /> <strong>Phone:</strong> (+91) 9876543210</li>
@@ -53,10 +47,16 @@ export default function Contact() {
           <li><FaMapMarkerAlt className={styles.icon} /> <strong>Address:</strong> 47, Jayalakshmi Nagar 4th Street, Kattupakkam</li>
           <li><FaClock className={styles.icon} /> <strong>Business Hours:</strong> Monday – Friday: 8:00 AM – 6:00 PM, Saturday: 9:00 AM – 3:00 PM</li>
         </ul>
-        <section className={styles.mapSection}>
+        <div className={styles.mapSection}>
           <h2>Find Us Here</h2>
-          <iframe src="https://www.google.com/maps/embed?pb=..." loading="lazy" width="600" height="200" style={{ border: 0 }}></iframe>
-        </section>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=..."
+            loading="lazy"
+            width="100%"
+            height="250"
+            style={{ border: 0, borderRadius: '10px' }}
+          ></iframe>
+        </div>
       </section>
       <section className={styles.formSection}>
         <h2>We'd Love to Hear From You</h2>

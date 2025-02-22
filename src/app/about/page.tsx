@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Head from 'next/head';
 import styles from './About.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -68,12 +68,24 @@ export default function About() {
         <title>About Us - Aspire D2D</title>
         <meta name="description" content="Learn more about Aspire D2D, your creative ally." />
       </Head>
-      <div className={`${styles.circle} ${styles.circle1}`}></div>
-      <div className={`${styles.circle} ${styles.circle2}`}></div>
-      <div className={`${styles.circle} ${styles.circle3}`}></div>
-      <div className={`${styles.circle} ${styles.circle4}`}></div>
-      <div className={`${styles.circle} ${styles.circle5}`}></div>
-      <div className={`${styles.circle} ${styles.circle6}`}></div>
+      {/* Dotted Lines */}
+      <div className={`${styles.dottedLine} ${styles.dottedLine1}`}></div>
+      <div className={`${styles.dottedLine} ${styles.dottedLine2}`}></div>
+      <div className={`${styles.dottedLine} ${styles.dottedLine3}`}></div>
+      <div className={`${styles.dottedLine} ${styles.dottedLine4}`}></div>
+      <div className={`${styles.dottedLine} ${styles.dottedLine5}`}></div>
+      <div className={`${styles.dottedLine} ${styles.dottedLine6}`}></div>
+      <div className={`${styles.dottedLine} ${styles.dottedLine7}`}></div>
+      <div className={`${styles.dottedLine} ${styles.dottedLine8}`}></div>
+      <div className={`${styles.dottedLine} ${styles.dottedLine9}`}></div>
+      <div className={`${styles.dottedLine} ${styles.dottedLine10}`}></div>
+      {/* Geometric Shapes */}
+      <div className={`${styles.triangle} ${styles.triangle1}`}></div>
+      <div className={`${styles.triangle} ${styles.triangle2}`}></div>
+      <div className={`${styles.triangle} ${styles.triangle3}`}></div>
+      <div className={`${styles.triangle} ${styles.triangle4}`}></div>
+      {/* Gradient Overlay */}
+      <div className={styles.gradientOverlay}></div>
       <section id="featuresSection" className={styles.featuresSection}>
         <h1 className={styles.title}>Why Choose Us</h1>
         <div className={styles.featuresGrid}>
@@ -85,7 +97,6 @@ export default function About() {
             </div>
           ))}
         </div>
-        {/* <button className={styles.teamButton} onClick={scrollToTeamSection}>Meet the Team</button> */}
       </section>
       <section id="teamSection" className={styles.teamSection}>
         <h2 className={styles.subtitle}>Meet the Team</h2>

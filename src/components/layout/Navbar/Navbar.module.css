@@ -1,4 +1,4 @@
-  .navbar {
+.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -8,30 +8,35 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   z-index: 1000;
-  background-clip: padding-box;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 .logoContainer {
   flex: 1;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* Align logo to the left */
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--color-accent-light);
-  padding: 0 40px;
   text-transform: uppercase;
   letter-spacing: 2px;
+  transition: opacity 0.3s ease;
+}
+
+.logo:hover {
+  opacity: 0.8; /* Slight hover effect */
 }
 
 .hamburger {
   display: none;
   flex-direction: column;
   cursor: pointer;
+  padding: 0.5rem;
 }
 
 .hamburger div {
@@ -39,16 +44,26 @@
   height: 3px;
   background-color: var(--color-white);
   margin: 4px 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hamburger.active div:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active div:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active div:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
 }
 
 .navLinksContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end; /* Align links to the right */
   align-items: center;
-  border: 1px solid var(--color-accent-light);
-  border-radius: 20px;
-  padding: 0.5rem 2rem;
-  box-shadow: 0 0 10px #bcbbfc;
+  gap: 2rem; /* Space between links */
 }
 
 .navLinks {
@@ -63,20 +78,24 @@
   text-decoration: none;
   color: var(--color-white);
   font-size: 1rem;
-  transition: color 0.3s ease;
+  font-weight: 500; /* Medium font weight */
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .navLink:hover {
   color: var(--color-accent-light);
+  transform: translateY(-2px); /* Slight lift on hover */
 }
 
 .navLink.active {
   color: var(--color-accent-light);
   font-weight: bold;
+  border-bottom: 2px solid var(--color-accent-light); /* Underline for active link */
 }
 
 .logoutLink {
   color: var(--color-error);
+  font-weight: 500;
 }
 
 .logoutLink:hover {
@@ -99,8 +118,7 @@
     flex-direction: column;
     align-items: center;
     padding: 1rem 0;
-    border: none;
-    box-shadow: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for mobile menu */
   }
 
   .navLinksContainer.active {
@@ -110,5 +128,9 @@
   .navLinks {
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .navLink {
+    font-size: 1.1rem; /* Slightly larger font for mobile */
   }
 }
