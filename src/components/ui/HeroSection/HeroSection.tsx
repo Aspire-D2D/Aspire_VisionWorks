@@ -25,11 +25,14 @@ export default function HeroSection() {
     <div className={styles.hero}>
       <div className={styles.content}>
         <div className={styles.headline}>
-          <h1 className={styles.headline}>From</h1>
-          <h1 className={`${styles.headline} ${animationClass}`}>{isConcept ? "Concept" : "Creation"}</h1>
-          <h1 className={styles.headline}> to </h1>
-          <h1 className={`${styles.headline} ${animationClass}`}>{isCreation ? "Creation" : "Development"} :</h1>
-          <h1 className={styles.headline}>Your Digital Partner</h1>
+          <h1>From</h1>
+          <h1 className={`${styles.animatedText} ${animationClass}`}>
+            {isConcept ? "Concept" : "Creation"}
+          </h1>
+          <h1>to</h1>
+          <h1 className={`${styles.animatedText} ${animationClass}`}>
+            {isCreation ? "Creation" : "Development"}
+          </h1>
         </div>
         <p className={styles.subheading}>
           Transform your ideas into impactful <strong>Digital Experiences</strong> with Aspire D2D. We specialize in <strong>Tailored Design</strong> and development solutions that drive results.
@@ -39,6 +42,9 @@ export default function HeroSection() {
           Set Your Ideas in Motion
         </button>
       </div>
+      {/* <div className={styles.imageContainer}>
+        <img src="/hero-image.jpg" alt="Hero Image" />
+      </div> */}
     </div>
   );
 }
