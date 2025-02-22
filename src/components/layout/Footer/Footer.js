@@ -11,7 +11,7 @@ export default function Footer() {
           <p>Where innovation meets digital transformation. Let's build the future together!</p>
         </div>
         <div className={styles.footerRight}>
-          <p>Have a question or idea? Get in touch with us: <a href="mailto:info@aspired2d.com">info@aspired2d.com</a></p>
+          <p>Have a question or idea? Get in touch with us: <a href="mailto:info@aspired2d.com" className={styles.mail}>info@aspired2d.com</a></p>
         </div>
       </div>
       <div className={styles.footerSocialMedia}>
@@ -29,7 +29,7 @@ export default function Footer() {
         </a>
       </div>
       <div className={styles.footerCopyright}>
-        <p>&copy; 2023 Aspire D2D. All rights reserved.</p>
+        <p>&copy; 2025 Aspire D2D. All rights reserved.</p>
       </div>
     </footer>
   );

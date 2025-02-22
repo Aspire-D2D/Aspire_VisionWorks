@@ -16,7 +16,7 @@ export default function HeroSection() {
         setIsConcept((prev) => !prev);
         setIsCreation((prev) => !prev);
         setAnimationClass(styles.slideUp);
-      }, 500); // Match with slide-down duration
+      }, 600);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -28,7 +28,7 @@ export default function HeroSection() {
           <h1 className={styles.headline}>From</h1>
           <h1 className={`${styles.headline} ${animationClass}`}>{isConcept ? "Concept" : "Creation"}</h1>
           <h1 className={styles.headline}> to </h1>
-          <h1 className={`${styles.headline} ${animationClass}`}>{isCreation ? "Creation" : "Development"}:</h1>
+          <h1 className={`${styles.headline} ${animationClass}`}>{isCreation ? "Creation" : "Development"} :</h1>
           <h1 className={styles.headline}>Your Digital Partner</h1>
         </div>
         <p className={styles.subheading}>

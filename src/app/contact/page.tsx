@@ -48,7 +48,7 @@ export default function Contact() {
           team is ready to assist.
         </p>
         <ul className={styles.contactList}>
-          <li><FaPhone className={styles.icon} /> <strong>Phone:</strong> (123) 456-7890</li>
+          <li><FaPhone className={styles.icon} /> <strong>Phone:</strong> (+91) 9876543210</li>
           <li><FaEnvelope className={styles.icon} /> <strong>Email:</strong> info@aspired2d.com</li>
           <li><FaMapMarkerAlt className={styles.icon} /> <strong>Address:</strong> 47, Jayalakshmi Nagar 4th Street, Kattupakkam</li>
           <li><FaClock className={styles.icon} /> <strong>Business Hours:</strong> Monday – Friday: 8:00 AM – 6:00 PM, Saturday: 9:00 AM – 3:00 PM</li>

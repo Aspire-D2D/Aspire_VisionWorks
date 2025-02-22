@@ -1,36 +1,39 @@
 /* Color 1 */
 :root {
   /* Primary Colors */
-  --color-primary-dark: #070F2B;      /* Dark blue */
-  --color-primary: #1B1A55;           /* Primary blue */
-  --color-secondary: #535C91;         /* Secondary blue */
-  --color-accent-light: #bcbbfc;      /* Light accent blue */
-
+  --color-primary-dark: #0D1B2A;      /* Deep navy blue for strong contrast */
+  --color-primary: #1B263B;           /* Rich blue for backgrounds and sections */
+  --color-secondary: #415A77;         /* Elegant blue-gray for subtle depth */
+  --color-accent-light: #778DA9;      /* Soft accent blue for details and highlights */
+  
   /* Neutral Colors */
-  --color-black: #111827;             /* True black for text and dark sections */
-  --color-white: #F9FAFB;             /* Light gray for backgrounds, sections, or cards */
-  --color-light-gray: #D1D5DB;        /* Lighter gray for borders, cards, or light background sections */
-  --color-dark-gray: #374151;         /* Darker gray for secondary text and subtle details */
+  --color-black: #1E1E1E;             /* Almost black for text and depth */
+  --color-white: #F9FAFC;             /* Pure white for backgrounds and sections */
+  --color-light-gray: #E0E5EC;        /* Soft gray for borders and light UI elements */
+  --color-dark-gray: #4A4A4A;         /* Darker gray for secondary text and details */
+  
+  /* Hover & Border Colors */
+  --color-hover-primary: #294B72;     /* Hover color for interactive elements */
+  --color-hover-secondary: #2C3E50;     /* Hover color for secondary elements */
+  --color-border: #AEB6BF;            /* Smooth border color for subtle definition */
 
-  /* Hover Colors */
-  --color-hover-primary: #2C3E8C;     /* Hover color for primary blue */
-  
-  /* Border Colors */
-  --color-border-gray: #6B7280;       /* Medium gray for borders and dividers */
-  
-  /* Additional Colors */
-  --color-success: #10B981;           /* Bright green for success messages */
-  --color-error: #EF4444;             /* Bright red for error messages */
-  
+  /* Status Colors */
+  --color-success: #16A34A;           /* Vibrant green for success messages */
+  --color-error: #DC2626;             /* Bright red for errors and alerts */
+  --color-warning: #F59E0B;           /* Golden yellow for warnings and notices */
+  --color-info: #0EA5E9;              /* Sky blue for informational messages */
+
   /* Accent Colors */
-  --color-accent: #F59E0B;            /* Bright yellow for highlights and active items */
-  --color-warning: #F97316;           /* Bright orange for warning alerts */
-  --color-warning-dark: #C2410C;      /* Dark orange for warning alerts */
+  --color-accent: #F4A261;            /* Warm peach-orange for buttons and highlights */
+  --color-accent-dark: #E76F51;       /* Deep red-orange for vibrant contrast */
+  --color-highlight: #E9C46A;         /* Gold for key elements and active states */
 
-  /* Heading Colors */
-  --color-heading-primary: #E5E7EB;   /* Light gray for primary headings */
-  --color-heading-secondary: #9CA3AF; /* Medium gray for secondary headings */
+  /* Typography Colors */
+  --color-heading: #EDEDED;           /* Light gray for headings */
+  --color-text: #CBD5E1;              /* Subtle soft blue for readable text */
+  --color-subtext: #94A3B8;           /* Muted blue-gray for less prominent text */
 }
+
 
 
 /* CSS Reset */
@@ -52,28 +55,4 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-
-.layout-body {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.layout-main {
-  flex: 1;
-  padding-top: 60px; /* Adjust if you have a fixed navbar */
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Center content vertically */
-}
-
-footer {
-  background-color: var(--color-black);
-  color: var(--color-white);
-  padding: 10px 20px;
-  text-align: center;
-  width: 100%;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: auto; 
 }

@@ -7,6 +7,7 @@
   overflow: hidden;
   color: var(--color-white);
   text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .hero::before {
@@ -32,7 +33,7 @@
   height: 100%;
   filter: blur(2px);
   background-color: var(--color-primary); 
-  opacity: 0.5;
+  opacity: 0.3;
   z-index: 0; 
 }
 
@@ -58,7 +59,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  line-height: 1.1;
+  line-height: 1.2;
   white-space: nowrap;
 }
 
@@ -114,6 +115,7 @@
   font-size: 1.25rem;
   margin-bottom: 2rem;
   font-style: italic;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .ctaButton {
@@ -133,7 +135,7 @@
   gap: 10px;
   margin-top: 20px;
   transform: scale(1.05);
-  box-shadow: 0 12px 18px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 18px rgba(0, 0, 0, 0.2);
 }
 
 .ctaButton::before {

@@ -55,6 +55,10 @@
 .footerLinks a:hover {
   color: var(--color-accent);
 }
+.mail{
+  color: var(--color-accent);
+  text-decoration: none;
+}
 
 .icon {
   font-size: 1.2rem;
@@ -70,7 +74,7 @@
 .footerSocialMedia {
   display: flex;
   justify-content: center;
-  gap: 10px; /* This ensures a 10px gap between each icon */
+  gap: 30px; /* This ensures a 10px gap between each icon */
   margin-top: 10px;
 }
 
@@ -80,7 +84,7 @@
 }
 
 .footerSocialMedia a:hover {
-  color: var(--color-accent-light);
+  color: var(--color-primary);
 }
 
 .footerSocialMedia .icon {
@@ -89,5 +93,5 @@
 }
 
 .footerSocialMedia a:hover .icon {
-  color: var(--color-secondary); /* Ensure the icon itself changes color on hover */
+  color: var(--color-accent); /* Ensure the icon itself changes color on hover */
 }

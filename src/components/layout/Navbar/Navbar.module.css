@@ -1,158 +1,114 @@
-/* Navbar Styling */
-.navbar {
+  .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-white);
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   z-index: 1000;
-  background-clip: padding-box; /* Ensures the background extends to the edges */
+  background-clip: padding-box;
 }
 
+.logoContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
 
-/* Logo styling */
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: var(--color-white, #fff);
+  color: var(--color-accent-light);
   padding: 0 40px;
   text-transform: uppercase;
   letter-spacing: 2px;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
   cursor: pointer;
-  transition: transform 0.3s ease;
 }
 
-.logo:hover {
-  transform: scale(1.1);
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: var(--color-white);
+  margin: 4px 0;
 }
 
-/* Navigation Links container */
-.navLinks {
+.navLinksContainer {
   display: flex;
-  gap: 30px;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--color-accent-light);
+  border-radius: 20px;
+  padding: 0.5rem 2rem;
+  box-shadow: 0 0 10px #bcbbfc;
+}
+
+.navLinks {
   list-style: none;
-  padding: 0 40px;
+  display: flex;
+  gap: 2rem;
   margin: 0;
+  padding: 0;
 }
 
 .navLink {
-  color: var(--color-white, #fff);
   text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: 500;
-  position: relative;
+  color: var(--color-white);
+  font-size: 1rem;
   transition: color 0.3s ease;
 }
 
-/* Hover Effect with Underline Animation */
 .navLink:hover {
-  color: var(--color-hover-primary, #ffcc00);
+  color: var(--color-accent-light);
 }
 
-.navLink::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 100%;
-  height: 2px;
-  background-color: var(--color-hover-primary, #ffcc00);
-  transform: scaleX(0);
-  transform-origin: bottom right;
-  transition: transform 0.3s ease;
+.navLink.active {
+  color: var(--color-accent-light);
+  font-weight: bold;
 }
 
-.navLink:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-
-/* Logout Link */
 .logoutLink {
-  background-color: var(--color-warning, #ff5733);
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-weight: 600;
-  color: var(--color-white, #fff);
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  color: var(--color-error);
 }
 
 .logoutLink:hover {
-  background-color: var(--color-warning-dark, #d1452c);
-  transform: scale(1.05);
+  color: var(--color-warning-dark);
 }
 
-/* Mobile Navbar (Hamburger Menu) */
+/* Responsive Styles */
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
+  .hamburger {
+    display: flex;
   }
 
-  .logo {
-    margin-bottom: 1rem;
-    font-size: 1.8rem;
+  .navLinksContainer {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--color-primary);
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  .navLinksContainer.active {
+    display: flex;
   }
 
   .navLinks {
-    display: none;
     flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    text-align: center;
-  }
-
-  /* .navLinks.active {
-    display: flex;
-  } */
-
-
-  /* Hamburger Icon */
-  .hamburger {
-    display: block;
-    cursor: pointer;
-    width: 30px;
-    height: 20px;
-    position: relative;
-    z-index: 1001;
-  }
-
-  .hamburger div {
-    background-color: var(--color-white, #fff);
-    height: 4px;
-    width: 100%;
-    position: absolute;
-    transition: all 0.3s ease;
-  }
-
-  .hamburger div:nth-child(1) {
-    top: 0;
-  }
-
-  .hamburger div:nth-child(2) {
-    top: 8px;
-  }
-
-  .hamburger div:nth-child(3) {
-    top: 16px;
-  }
-
-  .hamburger.active div:nth-child(1) {
-    transform: rotate(45deg);
-    top: 8px;
-  }
-
-  .hamburger.active div:nth-child(2) {
-    opacity: 0;
-  }
-
-  .hamburger.active div:nth-child(3) {
-    transform: rotate(-45deg);
-    top: 8px;
+    gap: 1rem;
   }
 }

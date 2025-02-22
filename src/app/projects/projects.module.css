@@ -6,7 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60vh;
+    height: 100vh;
     text-align: center;
     overflow: hidden;
   }
@@ -54,9 +54,12 @@
   
   /* Content Section */
   .content {
-    padding: 80px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
     text-align: center;
-    background-color: var(--color-white);
+    background-color: var(--color-primary);
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
   }
@@ -69,7 +72,7 @@
   .heading {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--color-primary);
+    color: var(--color-white);
     margin-bottom: 20px;
     letter-spacing: 1px;
   }
@@ -77,8 +80,8 @@
   .paragraph {
     font-size: 1.125rem;
     font-weight: 300;
-    color: var(--color-dark-gray);
-    line-height: 1.6;
+    color: var(--color-subtext);
+    line-height: 1.8;
     margin-bottom: 30px;
     max-width: 720px;
     margin-left: auto;
@@ -87,11 +90,11 @@
   }
   
   .paragraph:hover {
-    color: var(--color-primary);
+    color: var(--color-light-gray);
   }
   
   .ctaButton {
-    background-color: var(--color-primary);
+    background-color: var(--color-secondary);
     color: var(--color-white);
     border: none;
     padding: 12px 24px;
@@ -103,9 +106,10 @@
   }
   
   .ctaButton:hover {
-    background-color: var(--color-hover-primary);
+    background-color: var(--color-hover-secondary);
     transform: translateY(-2px);
   }
+  
   
   /* Add responsiveness */
   @media (max-width: 768px) {

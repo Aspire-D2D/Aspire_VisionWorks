@@ -33,6 +33,7 @@ const Projects = () => {
           <button className={styles.ctaButton} onClick={handleStartProject}>Start Your Journey</button>
         </div>
       </section>
+
     </>
   );
 };
